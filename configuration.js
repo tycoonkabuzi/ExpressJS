@@ -1,4 +1,9 @@
+const Posts = require("./app/models/PostModel");
 const express = require("express");
+const mongoose = require("mongoose");
+
+mongoose.connect("mongodb://127.0.0.1:27017/express-blog");
+
 const app = express();
 const hbs = require("express-handlebars");
 const port = 8080;
@@ -6,13 +11,17 @@ const port = 8080;
 app.engine("hbs", hbs.engine({ extname: ".hbs" }));
 app.set("view engine", "hbs");
 
-app.get("/", (req, res) => {
-  res.render("home", {
-    title: "Home Page",
-    content:
-      "This is the home page and has most of the important things we need",
-    displayTitle: true,
-  });
+app.get("/:id", async (req, res) => {
+  if (req.params.id) {
+    const post = await Posts.findById(req.params.id);
+    res.render("home", {
+      title: post.title,
+      content: post.content,
+      displayTitle: true,
+    });
+  } else {
+    res.render("home");
+  }
 });
 
 app.get("/second", (req, res) => {
