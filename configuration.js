@@ -19,6 +19,7 @@ app.get("/second", (req, res) => {
   res.render("second", {
     title: "Creation",
     content: "When we talk about creation, we often mean other things",
+    names: ["Reed", "James", "Aksanti", "Queen"],
   });
 });
 app.listen(port, () => {
