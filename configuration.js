@@ -21,6 +21,11 @@ app.get("/second", (req, res) => {
 });
 
 app.get("/blog", postController.index);
+app.get("/blog/add", (_req, res) => {
+  res.render("blogViews/addPost");
+});
+app.get("/blog/:id", postController.post);
+
 app.listen(port, () => {
   console.log("Server started");
 });
