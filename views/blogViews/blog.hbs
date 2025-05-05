@@ -1,0 +1,11 @@
+<h1> List of Posts</h1>
+{{#each posts}}
+  <a href="blog/{{_id}}"><h3>{{title}}</h3></a>
+  <p>{{content}}</p>
+  <i>{{author}}</i>
+
+  <button>Delete</button>
+  <button>Edit</button>
+  <hr />
+{{/each}}
+<a href="/blog/add"><button>post</button> </a>
