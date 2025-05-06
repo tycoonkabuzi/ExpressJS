@@ -14,7 +14,17 @@ module.exports = {
       const post = await Post.findById(req.params.id);
       res.render("blogViews/singleBlog", post);
     } catch (err) {
-      //res.send(err);
+      res.send(err);
+    }
+  },
+  create: async (req, res) => {
+    try {
+      console.log(req.body);
+      const newPost = new Post({ ...req.body });
+      newPost.save();
+      res.redirect("/blog");
+    } catch (err) {
+      res.send(err);
     }
   },
 };
