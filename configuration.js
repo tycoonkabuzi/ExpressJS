@@ -9,6 +9,8 @@ const app = express();
 const hbs = require("express-handlebars");
 const port = 8080;
 
+app.use(express.urlencoded({ extended: true }));
+
 app.engine("hbs", hbs.engine({ extname: ".hbs" }));
 app.set("view engine", "hbs");
 
@@ -25,6 +27,7 @@ app.get("/blog/add", (_req, res) => {
   res.render("blogViews/addPost");
 });
 app.get("/blog/:id", postController.post);
+app.post("/blog/add", postController.create);
 
 app.listen(port, () => {
   console.log("Server started");
