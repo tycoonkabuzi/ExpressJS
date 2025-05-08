@@ -4,8 +4,8 @@
   <p>{{content}}</p>
   <i>{{author}}</i>
 
-  <button>Delete</button>
-  <button>Edit</button>
+  <a href="blog/delete/{{_id}}"> <button> Delete</button></a>
+  <a href="/blog/editPost/{{_id}}"> <button> Edit</button></a>
   <hr />
 {{/each}}
 <a href="/blog/add"><button>post</button> </a>

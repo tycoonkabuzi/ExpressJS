@@ -1,9 +1,11 @@
 const Posts = require("./app/models/PostModel");
 const express = require("express");
-const postController = require("./app/controllers/postController");
+
 const mongoose = require("mongoose");
 
 mongoose.connect("mongodb://127.0.0.1:27017/express-blog");
+
+const blogRouter = require("./app/router/blogRouter");
 
 const app = express();
 const hbs = require("express-handlebars");
@@ -22,13 +24,9 @@ app.get("/second", (req, res) => {
   });
 });
 
-app.get("/blog", postController.index);
-app.get("/blog/add", (_req, res) => {
-  res.render("blogViews/addPost");
-});
-app.get("/blog/:id", postController.post);
-app.post("/blog/add", postController.create);
+// routes
 
+app.use("/blog", blogRouter);
 app.listen(port, () => {
   console.log("Server started");
 });
