@@ -1,9 +1,10 @@
-const Post = require("../models/PostModel");
+const Post = require("../models/PostModel"); // importing the model
+const User = require("../models/userModel");
 module.exports = {
   index: async (req, res) => {
     try {
       const posts = await Post.find({}).lean();
-
+      const users = await User.find({}).lean();
       res.render("blogViews/blog", { posts: posts });
     } catch (err) {
       res.send(err);
@@ -19,7 +20,6 @@ module.exports = {
   },
   create: async (req, res) => {
     try {
-      console.log(req.body);
       const newPost = new Post({ ...req.body });
       await newPost.save();
       res.redirect("/blog");
@@ -38,7 +38,7 @@ module.exports = {
   },
   update: async (req, res) => {
     try {
-      const toBeEdited = await Post.findByIdAndUpdate(req.params.id, req.body);
+      await Post.findByIdAndUpdate(req.params.id, req.body);
       res.redirect("/blog");
     } catch (err) {
       res.send(err);
@@ -46,7 +46,7 @@ module.exports = {
   },
   delete: async (req, res) => {
     try {
-      const toBeDeleted = await Post.findOneAndDelete(req.params.id);
+      await Post.findOneAndDelete(req.params.id);
       res.redirect("/blog");
     } catch (err) {
       res.send(err);

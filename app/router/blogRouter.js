@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const postController = require("../controllers/postController");
-
-router.get("/", postController.index);
+const authMiddleware = require("../middlewares/authMiddleWare");
+router.get("/", authMiddleware, postController.index);
 
 //created a route for the page
 router.get("/add", (_req, res) => {
