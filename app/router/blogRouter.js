@@ -12,8 +12,8 @@ router.get("/add", (_req, res) => {
 router.get("/:id", postController.post);
 
 // created an action with this
-router.post("/add", postController.create);
-router.get("/editPost/:id", postController.setDataForm);
+router.post("/add", authMiddleware, postController.create);
+router.get("/editPost/:id", authMiddleware, postController.setDataForm);
 router.post("/editPost/:id", postController.update);
 router.get("/delete/:id", postController.delete);
 

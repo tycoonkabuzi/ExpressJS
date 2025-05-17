@@ -5,11 +5,8 @@ module.exports = async (req, res, next) => {
   if (token) {
     try {
       const verified = jwt.verify(token, "secretKey");
-      console.log("Verified token:", verified);
       const user = await User.findById(verified._id);
-      if (!user) {
-        console.log(user);
-      }
+
       res.locals.userId = user._id;
       res.locals.userName = user.name;
       next();

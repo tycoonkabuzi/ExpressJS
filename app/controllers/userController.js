@@ -1,15 +1,20 @@
-const User = require("../models/userModel");
-const bcrypt = require("bcrypt");
+const User = require("../models/userModel"); // we add our user model
+const bcrypt = require("bcrypt"); // also the bcrypt package which hash our password
 module.exports = {
+  // export line here
   create: async (req, res) => {
+    // we would like to create a user.
     try {
-      const newUser = new User({ ...req.body });
-      await newUser.save();
-      res.redirect("/login");
+      const newUser = new User({ ...req.body }); // create user with new User" our user model" and in parameter we add the data coming from the form
+      await newUser.save(); // we save using the method save
+      res.redirect("users/login"); // redirect us to the page login
     } catch (err) {
+      // if there is an error we catch it,
       if (err.code === 11000) {
+        // we focus here on the 11000 which says already exists.
         res.render("userViews/signUpUser", {
-          isError: true,
+          // this will render the same sign up page but with an error that we are going to handle down here
+          isError: true, // true
           message: "This user is already registered",
         });
       }
@@ -56,5 +61,9 @@ module.exports = {
     } catch (err) {
       res.send(err);
     }
+  },
+  logout: (req, res) => {
+    res.clearCookie("AuthToken");
+    res.redirect("/users/login");
   },
 };

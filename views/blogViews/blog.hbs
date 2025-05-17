@@ -1,5 +1,6 @@
 {{#if userId}}
   <p>{{userName}} is logged in</p>
+  <a href="/users/logout">Logout</a>
 {{else}}
   <p>it did not work</p>
 {{/if}}
@@ -10,7 +11,7 @@
 
   <a href="blog/{{_id}}"><h3>{{title}}</h3></a>
   <p>{{content}}</p>
-  <i>{{author}}</i>
+  <i>{{author.name}}</i>
 
   <a href="blog/delete/{{_id}}"> <button> Delete</button></a>
   <a href="/blog/editPost/{{_id}}"> <button> Edit</button></a>
