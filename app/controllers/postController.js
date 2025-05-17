@@ -1,11 +1,10 @@
 const Post = require("../models/PostModel"); // importing the model
-
+const User = require("../models/userModel");
 module.exports = {
   index: async (req, res) => {
     try {
-      const posts = await Post.find({}).lean();
-      const username = await res.locals.userName;
-      res.render("blogViews/blog", { user: username, posts: posts });
+      const posts = await Post.find({}).populate("author").lean();
+      res.render("blogViews/blog", { posts: posts });
     } catch (err) {
       res.send(err);
     }
@@ -13,7 +12,7 @@ module.exports = {
 
   post: async (req, res) => {
     try {
-      const post = await Post.findById(req.params.id);
+      const post = await Post.findById(req.params.id).populate("author");
       res.render("blogViews/singleBlog", post);
     } catch (err) {
       res.send(err);
@@ -21,8 +20,17 @@ module.exports = {
   },
   create: async (req, res) => {
     try {
-      const newPost = new Post({ ...req.body });
+      const newPost = new Post({
+        ...req.body,
+        author: res.locals.userId,
+      });
       await newPost.save();
+
+      await User.updateOne(
+        { _id: res.locals.userId },
+        { $push: { posts: newPost._id } }
+      );
+
       res.redirect("/blog");
     } catch (err) {
       res.send(err);
