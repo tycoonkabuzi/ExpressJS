@@ -1,4 +1,3 @@
-const Posts = require("./app/models/PostModel"); // calling the model
 const express = require("express"); // importing express
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose"); //importing mongoose for the connection to the DB

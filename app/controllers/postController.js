@@ -1,15 +1,16 @@
 const Post = require("../models/PostModel"); // importing the model
-const User = require("../models/userModel");
+
 module.exports = {
   index: async (req, res) => {
     try {
       const posts = await Post.find({}).lean();
-      const users = await User.find({}).lean();
-      res.render("blogViews/blog", { posts: posts });
+      const username = await res.locals.userName;
+      res.render("blogViews/blog", { user: username, posts: posts });
     } catch (err) {
       res.send(err);
     }
   },
+
   post: async (req, res) => {
     try {
       const post = await Post.findById(req.params.id);

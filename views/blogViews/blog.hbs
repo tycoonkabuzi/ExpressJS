@@ -1,4 +1,9 @@
-<p> {{user}}is logged in</p>
+{{#if userId}}
+  <p>{{userName}} is logged in</p>
+{{else}}
+  <p>it did not work</p>
+{{/if}}
+
 <h1> List of Posts</h1>
 
 {{#each posts}}
