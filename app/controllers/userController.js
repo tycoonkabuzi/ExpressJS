@@ -38,6 +38,7 @@ module.exports = {
             message: "Login error",
             user: { name: req.body.name, password: "" },
           });
+          return;
         }
 
         if (logged) {

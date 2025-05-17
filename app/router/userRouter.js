@@ -13,7 +13,9 @@ router.get("/login", (req, res) => {
       error: true,
       message: "Please login to use the app",
     });
+    return;
   }
+  res.render("userViews/loginInUser");
 });
 router.post("/login", userController.login);
 
