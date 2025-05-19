@@ -11,7 +11,7 @@
 
   <a href="blog/{{_id}}"><h3>{{title}}</h3></a>
   <p>{{content}}</p>
-  <i>{{author.name}}</i>
+  <i> <a href="/blog?authorId={{author._id}}">{{author.name}}</a></i>
 
   <a href="blog/delete/{{_id}}"> <button> Delete</button></a>
   <a href="/blog/editPost/{{_id}}"> <button> Edit</button></a>
