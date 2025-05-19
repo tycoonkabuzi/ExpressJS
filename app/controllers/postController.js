@@ -2,8 +2,9 @@ const Post = require("../models/PostModel"); // importing the model
 const User = require("../models/userModel");
 module.exports = {
   index: async (req, res) => {
+    const findConfig = req.query.authorId ? { author: req.query.authorId } : {};
     try {
-      const posts = await Post.find({}).populate("author").lean();
+      const posts = await Post.find(findConfig).populate("author").lean();
       res.render("blogViews/blog", { posts: posts });
     } catch (err) {
       res.send(err);
